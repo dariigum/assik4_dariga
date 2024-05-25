@@ -1,9 +1,9 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class Vertex<V> {
+public class MyVertex<V> {
     private V data;
-    private Map<Vertex<V>, Double> adjacentVertices;
+    private Map<MyVertex<V>, Double> adjacentVertices;
 
     public Vertex(V data) {
         this.data = data;
@@ -14,11 +14,11 @@ public class Vertex<V> {
         return data;
     }
 
-    public void addAdjacentVertex(Vertex<V> destination, double weight) {
+    public void addAdjacentVertex(MyVertex<V> destination, double weight) {
         adjacentVertices.put(destination, weight);
     }
 
-    public Map<Vertex<V>, Double> getAdjacentVertices() {
+    public Map<MyVertex<V>, Double> getAdjacentVertices() {
         return adjacentVertices;
     }
 
@@ -27,5 +27,6 @@ public class Vertex<V> {
         return data.toString();
     }
 }
+
 
 
