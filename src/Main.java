@@ -1,55 +1,46 @@
-public class Main {
+import java.util.*;
 
-    public static void main(String[] args) {
-        MyWeightedGraph<String> weightedGraph = new MyWeightedGraph<>(true);
-        fillWithWeights(weightedGraph);
+public class BreadthFirstSearch<V> implements Search<V> {
+    private Map<MyVertex<V>, MyVertex<V>> edgeTo;
+    private Set<MyVertex<V>> marked;
 
-        System.out.println("Dijkstra:");
-        Search<String> djk = new DijkstraSearch<>(weightedGraph, "Almaty");
-        outputPath(djk, "Kyzylorda");
-
-
-        System.out.println("--------------------------------");
-
-        MyGraph<String> graph = new MyGraph<>(true);
-        fillWithoutWeights(graph);
-
-        System.out.println("DFS:");
-        Search<String> dfs = new DepthFirstSearch<>(graph, "Almaty");
-        outputPath(dfs, "Kyzylorda");
-
-        System.out.println("--------------------------------");
-
-        System.out.println("BFS:");
-        Search<String> bfs = new BreadthFirstSearch<>(graph, "Almaty");
-        outputPath(bfs, "Kyzylorda");
+    public BreadthFirstSearch() {
+        edgeTo = new HashMap<>();
+        marked = new HashSet<>();
     }
 
-    public static void fillWithoutWeights(MyGraph<String> graph) {
-        graph.addEdge("Almaty", "Astana"); // 16 - 19
-        graph.addEdge("Shymkent", "Atyrau");
-        graph.addEdge("Atyrau", "Astana");
-        graph.addEdge("Almaty", "Shymkent");
-        graph.addEdge("Shymkent", "Astana");
-        graph.addEdge("Astana", "Kostanay");
-        graph.addEdge("Shymkent", "Kyzylorda");
-    }
+    @Override
+    public List<MyVertex<V>> getPath(MyVertex<V> source, MyVertex<V> destination) {
+        bfs(source);
 
-    public static void fillWithWeights(MyWeightedGraph<String> graph) {
-        graph.addEdge("Almaty", "Astana", 2.1);
-        graph.addEdge("Shymkent", "Atyrau", 7.8);
-        graph.addEdge("Atyrau", "Astana", 7.1);
-        graph.addEdge("Almaty", "Shymkent", 7.2);
-        graph.addEdge("Shymkent", "Astana", 3.9);
-        graph.addEdge("Astana", "Kostanay", 3.5);
-        graph.addEdge("Shymkent", "Kyzylorda", 5.4);
-    }
-
-    public static void outputPath(Search<String> search, String key) {
-        for (String v : search.pathTo(key)) {
-            System.out.print(v + " -> ");
+        if (!marked.contains(destination)) {
+            return null;
         }
 
-        System.out.println();
+        List<MyVertex<V>> path = new LinkedList<>();
+        for (MyVertex<V> x = destination; x != null; x = edgeTo.get(x)) {
+            path.add(0, x);
+        }
+
+        return path;
+    }
+
+    private void bfs(MyVertex<V> source) {
+        Queue<MyVertex<V>> queue = new LinkedList<>();
+        marked.add(source);
+        queue.add(source);
+
+        while (!queue.isEmpty()) {
+            MyVertex<V> v = queue.poll();
+
+            for (MyVertex<V> w : v.getAdjacentVertices().keySet()) {
+                if (!marked.contains(w)) {
+                    edgeTo.put(w, v);
+                    marked.add(w);
+                    queue.add(w);
+                }
+            }
+        }
     }
 }
+
