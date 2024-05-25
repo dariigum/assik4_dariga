@@ -1,46 +1,33 @@
-import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        MyGraph<String> graph = new MyGraph<>();
 
-public class BreadthFirstSearch<V> implements Search<V> {
-    private Map<MyVertex<V>, MyVertex<V>> edgeTo;
-    private Set<MyVertex<V>> marked;
+        graph.addVertex("Almaty");
+        graph.addVertex("Astana");
+        graph.addVertex("Shymkent");
+        graph.addVertex("Pavlodar");
+        graph.addVertex("Oral");
 
-    public BreadthFirstSearch() {
-        edgeTo = new HashMap<>();
-        marked = new HashSet<>();
-    }
+        graph.addEdge("Almaty","Astana");
+        graph.addEdge("Almaty","Shymkent");
+        graph.addEdge("Astana","Pavlodar");
+        graph.addEdge("Astana","Oral");
 
-    @Override
-    public List<MyVertex<V>> getPath(MyVertex<V> source, MyVertex<V> destination) {
-        bfs(source);
 
-        if (!marked.contains(destination)) {
-            return null;
-        }
+        System.out.println(graph.hasEdge("Almaty", "Astana"));
+        System.out.println(graph.hasEdge("Almaty", "Pavlodar"));
 
-        List<MyVertex<V>> path = new LinkedList<>();
-        for (MyVertex<V> x = destination; x != null; x = edgeTo.get(x)) {
-            path.add(0, x);
-        }
+        System.out.println();
 
-        return path;
-    }
+        System.out.println(graph.getNeighbors("Almaty"));
 
-    private void bfs(MyVertex<V> source) {
-        Queue<MyVertex<V>> queue = new LinkedList<>();
-        marked.add(source);
-        queue.add(source);
+        graph.printGraph();
+        System.out.println("_____________________________");
+        graph.removeEdge("Astana", "Oral");
 
-        while (!queue.isEmpty()) {
-            MyVertex<V> v = queue.poll();
+        graph.printGraph();
 
-            for (MyVertex<V> w : v.getAdjacentVertices().keySet()) {
-                if (!marked.contains(w)) {
-                    edgeTo.put(w, v);
-                    marked.add(w);
-                    queue.add(w);
-                }
-            }
-        }
+
+
     }
 }
-
