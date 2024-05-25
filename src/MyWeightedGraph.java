@@ -1,10 +1,11 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class WeightedGraph<V> {
+public class MyWeightedGraph<V> {
     private Map<Vertex<V>, Vertex<V>> vertices;
+    private Map<Vertex, List<Edge<Vertex>>>map=new HashMap<>();
 
-    public WeightedGraph() {
+    public MyWeightedGraph() {
         this.vertices = new HashMap<>();
     }
 
@@ -26,15 +27,8 @@ public class WeightedGraph<V> {
         return vertices;
     }
 
-    public void setVertices(Map<Vertex<V>, Vertex<V>> vertices) {
-        this.vertices = vertices;
-    }
 
-    public void printGraph() {
-        for (Vertex<V> vertex : vertices.keySet()) {
-            System.out.println(vertex);
-
-        }
+    public void addEdge(V almaty, V astana, double weight) {
     }
 }
 

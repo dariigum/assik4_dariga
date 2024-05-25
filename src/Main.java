@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        WeightedGraph<String> weightedGraph = new WeightedGraph<>(true);
+        MyWeightedGraph<String> weightedGraph = new MyWeightedGraph<>(true);
         fillWithWeights(weightedGraph);
 
         System.out.println("Dijkstra:");
@@ -35,7 +35,7 @@ public class Main {
         graph.addEdge("Shymkent", "Kyzylorda");
     }
 
-    public static void fillWithWeights(WeightedGraph<String> graph) {
+    public static void fillWithWeights(MyWeightedGraph<String> graph) {
         graph.addEdge("Almaty", "Astana", 2.1);
         graph.addEdge("Shymkent", "Atyrau", 7.8);
         graph.addEdge("Atyrau", "Astana", 7.1);
