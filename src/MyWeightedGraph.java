@@ -8,6 +8,18 @@ public class MyWeightedGraph<V> {
         this.vertices = new HashMap<>();
     }
 
+    public MyWeightedGraph(boolean b) {
+        class MyGraph<V> extends MyWeightedGraph<V>{
+            public MyGraph(boolean directed) {
+                super(directed);
+            }
+
+            public void addEdge(V source, V destination) {
+                super.addEdge((MyVertex<V>) source, (MyVertex<V>) destination, 1.0);
+            }
+        }
+    }
+
     public void addVertex(MyVertex<V> vertex) {
         vertices.put(vertex, vertex);
     }
