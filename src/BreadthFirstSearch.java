@@ -25,6 +25,21 @@ public class BreadthFirstSearch<V> implements Search<V> {
         return path;
     }
 
+    @Override
+    public String[] pathTo(V key) {
+        for (MyVertex<V> vertex : edgeTo.keySet()) {
+            if (vertex.getData().equals(key)) {
+                List<MyVertex<V>> path = new LinkedList<>();
+                for (MyVertex<V> x = vertex; x != null; x = edgeTo.get(x)) {
+                    path.add(0, x);
+                }
+                return path.stream().map(MyVertex::toString).toArray(String[]::new);
+            }
+        }
+        return null;
+    }
+
+
     private void bfs(MyVertex<V> source) {
         Queue<MyVertex<V>> queue = new LinkedList<>();
         marked.add(source);

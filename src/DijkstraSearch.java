@@ -19,12 +19,27 @@ public class DijkstraSearch<V> implements Search<V> {
             return null;
         }
 
-        List<Vertex<V>> path = new LinkedList<>();
+        List<MyVertex<V>> path = new LinkedList<>();
         for (MyVertex<V> x = destination; x != null; x = edgeTo.get(x)) {
             path.add(0, x);
         }
 
         return path;
+    }
+
+
+    @Override
+    public String[] pathTo(V key) {
+        for (MyVertex<V> vertex : edgeTo.keySet()) {
+            if (vertex.getData().equals(key)) {
+                List<MyVertex<V>> path = new LinkedList<>();
+                for (MyVertex<V> x = vertex; x != null; x = edgeTo.get(x)) {
+                    path.add(0, x);
+                }
+                return path.stream().map(MyVertex::toString).toArray(String[]::new);
+            }
+        }
+        return null;
     }
 
     private void dijkstra(MyVertex<V> source) {
