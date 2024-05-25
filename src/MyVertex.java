@@ -5,7 +5,7 @@ public class MyVertex<V> {
     private V data;
     private Map<MyVertex<V>, Double> adjacentVertices;
 
-    public Vertex(V data) {
+    public MyVertex(V data) {
         this.data = data;
         this.adjacentVertices = new HashMap<>();
     }

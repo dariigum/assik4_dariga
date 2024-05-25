@@ -2,17 +2,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyWeightedGraph<V> {
-    private Map<Vertex<V>, Vertex<V>> vertices;
+    private Map<MyVertex<V>, MyVertex<V>> vertices;
 
     public MyWeightedGraph() {
         this.vertices = new HashMap<>();
     }
 
-    public void addVertex(Vertex<V> vertex) {
+    public void addVertex(MyVertex<V> vertex) {
         vertices.put(vertex, vertex);
     }
 
-    public void addEdge(Vertex<V> source, Vertex<V> destination, double weight) {
+    public void addEdge(MyVertex<V> source, MyVertex<V> destination, double weight) {
         if (!vertices.containsKey(source)) {
             addVertex(source);
         }
@@ -22,7 +22,7 @@ public class MyWeightedGraph<V> {
         source.addAdjacentVertex(destination, weight);
     }
 
-    public Map<Vertex<V>, Vertex<V>> getVertices() {
+    public Map<MyVertex<V>, MyVertex<V>> getVertices() {
         return vertices;
     }
 }
